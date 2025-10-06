@@ -1,38 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="utf-8">
-    <title>DIC Cafe - Contact Us</title>
-    <link rel="stylesheet" href="../Javascript_sample/css/contact_validation.css">
-    <script type="text/javascript" src="../javascript/validation.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #error-message {
+            display: none;
+            background-color: #e0e0e0; /* Light gray background for error when shown */
+            color: #143559; /* Assumed #143559 for the dark blue-ish color */
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border-left: 4px solid #143559;
+            background-color: #f8d7da; /* Light red background for error when shown */
+        }
+        .error-input {
+            background-color: #f8d7da !important; /* Light red background for error when shown */
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    <section class="section_inner">
-        <h1>CONTACT US</h1>
-        <div class="contact-form">
-            <form action="#" method="POST" id="form">
-        <table class="contact">
-        <tr class="contact_line">
-            <td class="contact_sign"><label for="name">Name</label></td>
-            <td class="contact_input"><input type="text" name="name" id="name"></td>
-        </tr>
-        <tr class="contact_line">
-            <td class="contact_sign"><label for="email">Email</label></td>
-            <td class="contact_input"><input type="email" name="email" id="email"></td>
-        </tr>
-        <tr class="contact_line">
-            <td class="contact_sign"><label for="email_confirm">Email (Confirmation)</label></td>
-            <td class="contact_input"><input type="email" name="email_confirm" id="email_confirm"></td>
-        </tr>
-        <tr class="contact_content">
-            <td class="contact_sign"><label for="content">Message</label></td>
-            <td class="contact_input"><textarea name="content" id="content"></textarea></td>
-        </tr>
-        </table>
-        <div class="contact_btn_area">
-        <button type="reset" class="contact_btn reset_btn">Reset</button>
-        <button type="submit" class="contact_btn submit_btn">Submit</button>
-        </div>
-    </form>
-        </div>
-    </section>
+    <h1>CONTACT<br><small></small></h1>
+    <div class="form-container">
+        <form id="contact-form">
+            <div class="form-group">
+                <label for="subject">subject</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="email">email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-email">confirm-email</label>
+                <input type="email" id="confirm-email" name="confirm-email" required>
+                <div id="error-message">Email does not match</div>
+            </div>
+            <div class="form-group">
+                <label for="message">message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit">submit</button>
+            <div id="error-message">Email does not match</div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default submission for demo
+
+            const email = document.getElementById('email').value;
+            const confirmEmail = document.getElementById('confirm-email').value;
+            const errorDiv = document.getElementById('error-message');
+
+            if (email !== confirmEmail) {
+                errorDiv.style.display = 'block';
+                // Form background remains white, no change
+            } else {
+                errorDiv.style.display = 'none';
+                // Proceed with form submission logic here if needed
+                alert('Form submitted successfully!');
+            }
+        });
+
+        // Optional: Real-time validation on confirmation email input
+        document.getElementById('confirm-email').addEventListener('input', function() {
+            const email = document.getElementById('email').value;
+            const confirmEmail = this.value;
+            const errorDiv = document.getElementById('error-message');
+
+            if (confirmEmail && email !== confirmEmail) {
+                errorDiv.style.display = 'block';
+            } else {
+                errorDiv.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

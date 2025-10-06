@@ -1,32 +1,29 @@
-function emailValidation() {
-const form = document.getElementById('form');
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default submission for demo
 
-form.addEventListener('submit', function(e) {
-    if (form.email.value !== form.email_confirm.value) {
-    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const confirmEmail = document.getElementById('confirm-email').value;
+    const errorDiv = document.getElementById('error-message');
 
-      // Remove any existing alert to avoid duplicates
-    const oldAlert = document.querySelector('.alert');
-    if (oldAlert) {
-        oldAlert.remove();
-    }
-
-      // Create error message
-    const element = document.createElement('p');
-    element.textContent = "Email addresses do not match";
-    element.classList.add("alert");
-
-      // Insert after confirm email field
-    form.email_confirm.insertAdjacentElement('afterend', element);
-
-      // Remove after 3 seconds
-    setTimeout(function() {
-        if (element.parentNode) {
-        element.remove();
-        }
-    }, 3000);
+    if (email !== confirmEmail) {
+        errorDiv.style.display = 'block';
+        // Form background remains white, no change
+    } else {
+        errorDiv.style.display = 'none';
+        // Proceed with form submission logic here if needed
+        alert('Form submitted successfully!');
     }
 });
-}
 
-window.onload = emailValidation;
+// Optional: Real-time validation on confirmation email input
+document.getElementById('confirm-email').addEventListener('input', function() {
+    const email = document.getElementById('email').value;
+    const confirmEmail = this.value;
+    const errorDiv = document.getElementById('error-message');
+
+    if (confirmEmail && email !== confirmEmail) {
+        errorDiv.style.display = 'block';
+    } else {
+        errorDiv.style.display = 'none';
+    }
+});
