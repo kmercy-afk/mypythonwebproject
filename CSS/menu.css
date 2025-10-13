@@ -1,0 +1,179 @@
+/* General Reset and Font */
+body {
+font-family: 'Noto Serif JP', serif;
+margin: 0;
+padding: 0;
+background-color: #fffaf5;
+color: #333;
+}
+
+/* Header */
+header {
+background-color: #fff;
+padding: 10px 0;
+border-bottom: 1px solid #ddd;
+}
+/* Navbar */
+.header_nav {
+background: linear-gradient(90deg, #fff 20%, rgba(0,0,0,.6) 60%);
+display: flex;
+height: 60px;
+justify-content: space-between;
+align-items: center;
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 1000;
+}
+
+.global_nav {
+display: flex;
+align-items: stretch;
+}
+
+.global_nav_item {
+color: #fff;
+text-decoration: none;
+display: flex;
+align-items: center;
+padding: 0 20px;
+}
+
+.global_nav_item:hover {
+background: #fff;
+color: #42210b;
+}
+
+.logo {
+width: 120px;
+display: flex;
+align-items: center;
+}
+
+.logo img {
+width: 100%;
+}
+
+
+/* Sidebar Menu */
+.side_menu {
+width: 220px;
+float: left;
+margin-right: 20px;
+}
+.side_menu_title {
+font-size: 1.5em;
+margin-bottom: 10px;
+}
+.side_menu_item {
+text-decoration: none;
+color: #555;
+display: block;
+margin-bottom: 8px;
+}
+.side_ad {
+margin-top: 20px;
+background: #f9f9f9;
+padding: 10px;
+border-left: 3px solid #c93;
+}
+
+/* Main Content */
+.wrapper {
+max-width: 1200px;
+margin: auto;
+display: flex;
+}
+.main {
+flex: 1;
+}
+.menu_image, .menu_item_image, .coffee_menu_image {
+max-width: 100%;
+height: auto;
+border-radius: 8px;
+margin-bottom: 10px;
+}
+.menu_name {
+font-size: 2em;
+margin: 10px 0;
+}
+.menu_price {
+font-weight: bold;
+font-size: 1.2em;
+color: #c93;
+}
+
+/* Section Titles */
+.section_title, .menu_title {
+font-size: 1.8em;
+margin-bottom: 20px;
+border-bottom: 2px solid #c93;
+padding-bottom: 5px;
+}
+
+/* Menu List */
+.menu_list {
+list-style: none;
+padding: 0;
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+}
+.menu_item, .coffee_menu_list_item, .coffee_menu {
+width: calc(50% - 10px);
+background: #fdfdfd;
+padding: 15px;
+border: 1px solid #eee;
+border-radius: 8px;
+box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.menu_item_title {
+margin: 0;
+font-size: 1.3em;
+}
+.menu_item_price, .coffee_menu_price {
+color: #c93;
+font-weight: bold;
+}
+.btn {
+display: inline-block;
+padding: 8px 16px;
+background-color: #c93;
+color: #fff;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-weight: bold;
+margin-top: 10px;
+}
+.btn:hover {
+background-color: #a76a00;
+}
+
+/* Form Styles */
+form {
+margin-top: 20px;
+}
+form select, form input[type="number"] {
+padding: 5px;
+font-size: 1em;
+margin-right: 10px;
+}
+form input[type="button"] {
+margin-right: 10px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+.wrapper {
+    flex-direction: column;
+    padding: 0 10px;
+}
+.side_menu {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.menu_item, .coffee_menu_list_item, .coffee_menu {
+    width: 100%;
+}
+}
