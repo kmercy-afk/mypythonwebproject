@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+        }
+        h1 {
+            text-align: center;
+            color: black;
+            margin: 0 0 5px 0;
+            font-size: 3em;
+            font-weight: bold;
+        }
+        h2 {
+            text-align: center;
+            color: black;
+            margin: 0 0 30px 0;
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+        .form-table {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        .form-table td {
+            padding: 0;
+            vertical-align: top;
+            border: 1px solid #ccc;
+        }
+        .form-table td:first-child {
+            width: 100px;
+            background-color: #d3d3d3;
+            padding: 6px 6px 6px 12px;
+            font-size: 0.9em;
+            color: black;
+        }
+        .form-table td:last-child {
+            padding: 6px 12px;
+            background-color: white;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            border: none;
+            padding: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: white;
+        }
+        input:not(:placeholder-shown), textarea:not(:placeholder-shown) {
+            background-color: #e6f3ff;
+        }
+        textarea {
+            height: 120px;
+            resize: none;
+        }
+        .button-row {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .reset-btn, .send-btn {
+            border: 1px solid transparent;
+            padding: 8px 16px;
+            margin: 0 8px;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 3px;
+        }
+        .reset-btn {
+            background-color: #e6e6e6;
+            color: #666;
+        }
+        .send-btn {
+            background-color: #9675ce;
+            color: white;
+        }
+        .error-message {
+            color: #d14539;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+        .confirmation-input {
+            position: relative;
+        }
+        .confirmation-input.error input {
+            background-color: rgba(230, 169, 171, 0.5) !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>CONTACT</h1>
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+        <table class="form-table">
+            <tr>
+                <td>name</td>
+                <td><input type="text" id="name" name="name" placeholder=" " required></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" id="email" name="email" placeholder=" " required></td>
+            </tr>
+            <tr>
+                <td>Email<br>(confirmation)</td>
+                <td>
+                    <div class="confirmation-input" id="confirmationContainer">
+                        <input type="email" id="emailConfirm" name="emailConfirm" placeholder=" " required>
+                        <div class="error-message" id="errorMessage">Email does not match</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Contents</td>
+                <td><textarea id="contents" name="contents" placeholder=" " required></textarea></td>
+            </tr>
+        </table>
+        <div class="button-row">
+            <button type="button" class="reset-btn" onclick="resetForm()">reset</button>
+            <button type="submit" class="send-btn">Send</button>
+        </div>
+    </form>
+
+    <script>
+        const emailInput = document.getElementById('email');
+        const emailConfirmInput = document.getElementById('emailConfirm');
+        const confirmationContainer = document.getElementById('confirmationContainer');
+        const errorMessage = document.getElementById('errorMessage');
+        const form = document.getElementById('contactForm');
+
+        function validateEmails() {
+            const email = emailInput.value.trim();
+            const confirmEmail = emailConfirmInput.value.trim();
+
+            if (confirmEmail && email && email !== confirmEmail) {
+                confirmationContainer.classList.add('error');
+                errorMessage.style.display = 'block';
+                return false;
+            } else {
+                confirmationContainer.classList.remove('error');
+                errorMessage.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Email format validation
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        emailInput.addEventListener('input', function() {
+            if (this.value && !validateEmail(this.value)) {
+                this.style.borderColor = '#d14539';
+            } else {
+                this.style.borderColor = '';
+            }
+            validateEmails();
+        });
+
+        emailConfirmInput.addEventListener('input', function() {
+            if (this.value && !validateEmail(this.value)) {
+                this.style.borderColor = '#d14539';
+            } else {
+                this.style.borderColor = '';
+            }
+            validateEmails();
+        });
+
+        form.addEventListener('submit', function(event) {
+            if (!validateEmail(emailInput.value) || !validateEmail(emailConfirmInput.value) || !validateEmails()) {
+                event.preventDefault();
+                alert('Please correct the errors before submitting.');
+            }
+        });
+
+        function resetForm() {
+            form.reset();
+            confirmationContainer.classList.remove('error');
+            errorMessage.style.display = 'none';
+            document.querySelectorAll('input, textarea').forEach(el => {
+                el.style.borderColor = '';
+                el.style.backgroundColor = 'white';
+            });
+        }
+    </script>
+</body>
+</html>
