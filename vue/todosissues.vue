@@ -7,24 +7,21 @@
     </form>
     <el-row :gutter="12">
     <!-- todo display area -->
-    <todoitem 
+    <TodoItem 
         :key="index" 
-        :todo="todoItem" 
+        :title="todoItem" 
         :index="index"
         @remove="removeTodo"
         v-for="(todoItem, index) in todos"
-    ></todoitem>
+    ></TodoItem>
     <!-- Issue Display Area -->
-    <el-col :key="issue.id" :span="12" v-for="(issue, index) in issues">
-        <el-card class="box-card" shadow="hover" style="margin: 5px 0;">
-        <el-row :gutter="12">
-            <el-col :span="21">{{ issue.title }}</el-col>
-            <el-col :span="3">
-            <el-button @click="closeIssue(index)" circle icon="el-icon-check" type="success"></el-button>
-            </el-col>
-        </el-row>
-        </el-card>
-    </el-col>
+    <TodoItem 
+        :key="issue.id" 
+        :title="issue.title" 
+        :index="index"
+        @remove="closeIssue"
+        v-for="(issue, index) in issues"
+    ></TodoItem>
     </el-row>
 </div>
 </template>
@@ -67,12 +64,15 @@ methods: {
     client.patch(`/issues/${target.number}`, { state: 'closed' })
         .then(() => {
         this.issues.splice(index, 1);
+        })
+        .catch((error) => {
+        console.error('Error closing issue:', error);
         });
     },
     getIssues() {
-    client.get('issues')
+    client.get('/issues')
         .then((res) => {
-        this.issues = res.data;
+        this.issues = res.data.filter(issue => issue.state === 'open');
         });
     }
 },
